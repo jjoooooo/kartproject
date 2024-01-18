@@ -1,9 +1,20 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kartproject/splash.dart';
+import 'package:kartproject/web/productprovider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<ProductProvider>(create: (_) {
+
+        return    ProductProvider()..Fetch();
+      }),
+
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

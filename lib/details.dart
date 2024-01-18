@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import 'model/Products.dart';
+
 class Details extends StatefulWidget {
-  const Details({super.key, required String name});
+  Products products;
+   Details({super.key, required this.products});
 
   @override
   State<Details> createState() => _DetailsState();
@@ -15,17 +18,9 @@ class _DetailsState extends State<Details>  with SingleTickerProviderStateMixin{
   late Animation<double> _nextPage;
   PageController controller2 = PageController();
   int _current = 0;
-  final pages = List.generate(
-      3,
-          (index) => Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/images/carosil.png"),
-              fit: BoxFit.cover),
-          borderRadius: BorderRadius.circular(16),
-          color: Colors.grey.shade300,
-        ),
-      ));
+  // final pages = List.generate(
+  //     3,
+  //         (index) =>);
   @override
   void initState() {
     // TODO: implement initState
@@ -58,7 +53,7 @@ class _DetailsState extends State<Details>  with SingleTickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(title: Text("${widget.products.title}"),),
         body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(children: [
@@ -71,9 +66,17 @@ class _DetailsState extends State<Details>  with SingleTickerProviderStateMixin{
                       _animationController.forward();
                     },
                     controller: controller2,
-                    // itemCount: pages.length,
+                     itemCount: widget.products.images!.length,
                     itemBuilder: (_, index) {
-                      return pages[index % pages.length];
+                      return  Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage("${widget.products.images![index]}"),
+                              fit: BoxFit.fitHeight),
+                          borderRadius: BorderRadius.circular(16),
+                          color: Colors.grey.shade300,
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -90,7 +93,7 @@ class _DetailsState extends State<Details>  with SingleTickerProviderStateMixin{
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Lenovo",
+                  "${widget.products.brand}",
                   style: GoogleFonts.poppins(
                     // textStyle: Theme.of(context).textTheme.displayLarge,
                       fontSize: 14,fontWeight: FontWeight.w700,
@@ -100,8 +103,8 @@ class _DetailsState extends State<Details>  with SingleTickerProviderStateMixin{
               ),
               Align(
                 alignment: Alignment.topLeft,
-                child: Text(
-                  "Lenovo Legion 5 Pro AMD Ryzen 7 Octa Core \n5800H",
+                child: Text(maxLines:2,
+                  "${widget.products.title}",
                   style: GoogleFonts.poppins(
                     // textStyle: Theme.of(context).textTheme.displayLarge,
                       fontSize: 14,fontWeight: FontWeight.w600,
@@ -112,7 +115,7 @@ class _DetailsState extends State<Details>  with SingleTickerProviderStateMixin{
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "(32 GB/1 TB SSD/Windows 11 Home/8 GB Graphics/\nNVIDIA GeForce RTX 3070) 16ACH6H Gaming Laptop \n(16 Inch, Storm Grey (Top), Black (Bottom), 2.45 Kg, \nWith MS Office)",
+                  "${widget.products.description}",
                   style: GoogleFonts.poppins(
                     // textStyle: Theme.of(context).textTheme.displayLarge,
                       fontSize: 12,fontWeight: FontWeight.w400,
@@ -137,7 +140,7 @@ class _DetailsState extends State<Details>  with SingleTickerProviderStateMixin{
                   children: [
 
                     Text(
-                      "\u{20B9}1399",
+                      "\u{20B9}13999",
                       style: GoogleFonts.poppins(
                         // textStyle: Theme.of(context).textTheme.displayLarge,
                           fontSize: 20,
@@ -148,7 +151,7 @@ class _DetailsState extends State<Details>  with SingleTickerProviderStateMixin{
                     ),
                     Expanded(child: SizedBox(width: 10,)),
                     Text(
-                      "-45 %  ",
+                      "${widget.products.discountPercentage}%  ",
                       style: GoogleFonts.poppins(
                         // textStyle: Theme.of(context).textTheme.displayLarge,
                           fontSize: 14,
@@ -158,7 +161,7 @@ class _DetailsState extends State<Details>  with SingleTickerProviderStateMixin{
                     ),
                     SizedBox(width: 10,),
                     Text(
-                      "\u{20B9}7499",
+                      "\u{20B9}${widget.products.price}",
                       style: GoogleFonts.poppins(
                         // textStyle: Theme.of(context).textTheme.displayLarge,
                           fontSize: 14,
