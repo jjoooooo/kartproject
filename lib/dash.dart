@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartproject/model/Products.dart';
-import 'package:kartproject/web/productprovider.dart';
+import 'package:kartproject/seaarch/search.dart';
+
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -14,6 +15,7 @@ class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
 
   @override
+
   State<DashBoard> createState() => _DashBoardState();
 }
 
@@ -63,11 +65,14 @@ class _DashBoardState extends State<DashBoard>
     _animationController.dispose();
     super.dispose();
   }
+  TextEditingController _searchController = TextEditingController();
+  List<Products> _products = [];
 
   @override
   Widget build(BuildContext context) {
     _animationController.forward();
     final provider = Provider.of<ProductProvider>(context);
+
     return Scaffold(
         appBar: AppBar(
           leading: Center(
@@ -101,10 +106,14 @@ class _DashBoardState extends State<DashBoard>
               child: Column(
                 children: [
                   TextFormField(
+                    onFieldSubmitted: (String value){
+                      provider.fetchProducts(query:value);
+                    },
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: "Search product that you wish to buy",
-                        prefixIcon: (Icon(Icons.search))),
+                        prefixIcon: (Icon(Icons.search)),
+                    ),
                   ),
                   SizedBox(
                     height: 50,
@@ -215,19 +224,20 @@ class _DashBoardState extends State<DashBoard>
                     height: 16,
                   ),
                   Container(
-                      height: 504,
+                      height: provider.products.length<=2?248:500,
                       child:Consumer<ProductProvider>(
                         builder: (context, providerobj, child) {
                           return  GridView.builder(
+                            shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
-                            itemCount: providerobj.plist.length,
+                            itemCount: providerobj.products.length,
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 mainAxisExtent: 250,
                                 crossAxisSpacing: 4.0,
                                 mainAxisSpacing:4.0),
                             itemBuilder: (BuildContext context, int index) {
-                              Products p=providerobj.plist[index];
+                              Products p=providerobj.products[index];
                               return InkWell(
                                 onTap: (){
                                   Navigator.push(

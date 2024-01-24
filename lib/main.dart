@@ -1,16 +1,23 @@
 import 'dart:async';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:kartproject/seaarch/search.dart';
 import 'package:kartproject/splash.dart';
-import 'package:kartproject/web/productprovider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "AIzaSyBJQq-wN8cmq1_nWWfbgmb-KI5jdXnbAj0",
+      appId: "1:810657329736:android:ccd105dfcf811aa1409e7d",
+      messagingSenderId: "181278127647",
+      projectId: "fullkart-73d26",
+    ),
+  );
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider<ProductProvider>(create: (_) {
-
-        return    ProductProvider()..Fetch();
-      }),
+      ChangeNotifierProvider<ProductProvider>(create: (_) => ProductProvider()..fetchallProducts()),
 
     ],
     child: MyApp(),

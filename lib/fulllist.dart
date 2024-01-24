@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kartproject/web/productprovider.dart';
+import 'package:kartproject/seaarch/search.dart';
 import 'package:provider/provider.dart';
 
 import 'details.dart';
@@ -77,14 +77,14 @@ class _FullListState extends State<FullList> {
                         return  GridView.builder(
                           shrinkWrap: true,
 
-                          itemCount: providerobj.plist.length??0,
+                          itemCount: providerobj.products.length??0,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               mainAxisExtent: 250,
                               crossAxisSpacing: 4.0,
                               mainAxisSpacing:4.0),
                           itemBuilder: (BuildContext context, int index) {
-                            Products p=providerobj.plist[index];
+                            Products p=providerobj.products[index];
                             return InkWell(
                               onTap: (){
                                 Navigator.push(

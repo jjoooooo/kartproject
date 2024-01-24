@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "810657329736",
+    "project_id": "fullkart-73d26",
+    "storage_bucket": "fullkart-73d26.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810657329736:android:ccd105dfcf811aa1409e7d",
+        "android_client_info": {
+          "package_name": "com.example.kartproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJQq-wN8cmq1_nWWfbgmb-KI5jdXnbAj0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

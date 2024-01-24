@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kartproject/web/productprovider.dart';
+import 'package:kartproject/seaarch/search.dart';
+
 import 'package:provider/provider.dart';
 
 import 'details.dart';
@@ -34,14 +35,14 @@ class _CatItemListState extends State<CatItemList> {
                           return  GridView.builder(
                             shrinkWrap: true,
 
-                            itemCount: providerobj.plist.length??0,
+                            itemCount: providerobj.products.length??0,
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 mainAxisExtent: 250,
                                 crossAxisSpacing: 4.0,
                                 mainAxisSpacing:4.0),
                             itemBuilder: (BuildContext context, int index) {
-                              Products p=providerobj.plist[index];
+                              Products p=providerobj.products[index];
                               return InkWell(
                                 onTap: (){
                                   Navigator.push(
@@ -61,7 +62,7 @@ class _CatItemListState extends State<CatItemList> {
                                         child: Container(height: 156,
                                           width: 135,
 
-                                          child: Image.network('${p.images![0]}',fit: BoxFit.fill, scale: 1.0),
+                                          child: Image.network('${p.thumbnail}',fit: BoxFit.fill, scale: 1.0),
                                         ),
                                       ),
                                       Positioned(top: 176,
